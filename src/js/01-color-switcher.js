@@ -9,14 +9,15 @@ const body = document.querySelector('body');
 ElBtnOn.addEventListener("click", () => {
 
     ElBtnOn.setAttribute('disabled', true);
-    
+    ElBtnOff.removeAttribute('disabled');
     timerId = setInterval(() => {
         body.style.backgroundColor =  getRandomHexColor();
   }, 1000);
 });
 
-
 ElBtnOff.addEventListener("click", () => {
-    clearInterval(timerId);
-    ElBtnOn.removeAttribute('disabled');
+ 
+  ElBtnOff.setAttribute('disabled', true);
+  ElBtnOn.removeAttribute('disabled');
+  clearInterval(timerId);
 });

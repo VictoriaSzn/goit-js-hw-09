@@ -5,14 +5,12 @@ import {Notify} from 'notiflix';
 
 const inputEl = document.querySelector('#datetime-picker');
 const btnEl = document.querySelector('button[data-start]');
-const timerDiv = document.querySelector('.timer');
 const daysEl = document.querySelector('span[data-days]');
 const hoursEl = document.querySelector('span[data-hours]');
 const minEl = document.querySelector('span[data-minutes]');
 const secEl = document.querySelector('span[data-seconds]');
 
 let userDate = null;
-//btnEl.classList.add('disabled');
 
 function pad(value) {
   return String(value).padStart(2, '0');
@@ -50,7 +48,6 @@ const options = {
             userDate = new Date();
         } else { 
             btnEl.disabled = false;
-           // btnEl.classList.remove('disabled');
             userDate = selectedDates[0];
         }
   },
@@ -66,8 +63,8 @@ class Timer  {
      if (this.isActive) {
             return;
         }
-   this.isActive = true;
-    this.timerId = setInterval(() => {
+      this.isActive = true;
+      this.timerId = setInterval(() => {
       const currentTime = Date.now();
       const deltaTime = userDate - currentTime;
       const { days, hours, minutes, seconds } = convertMs(deltaTime);
@@ -77,21 +74,21 @@ class Timer  {
       hoursEl.textContent = hours;
       minEl.textContent = minutes;
       secEl.textContent = seconds;
-      btnEl.setAttribute('disabled', true);
-      if (deltaTime <= 0) {
-              this.stop();
-            }
+      //btnEl.setAttribute('disabled', true);
+      btnEl.disabled = true;
+            if (deltaTime < 1000) {
+        this.stop();
+        }
     }, 1000);
   }
 
   stop() {
     clearInterval(this.timerId);
-    btnEl.remove('disabled');
+    this.isActive = false;
 }
 };
 
 const timer = new Timer();
-    flatpickr(inputEl, options);
-    btnEl.addEventListener('click', () => timer.start());
-
+flatpickr(inputEl, options);
+btnEl.addEventListener('click', () => timer.start());
 
