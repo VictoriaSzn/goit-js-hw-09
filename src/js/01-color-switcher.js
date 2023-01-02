@@ -5,12 +5,13 @@ function getRandomHexColor() {
 const ElBtnOn = document.querySelector('button[data-start]');
 const ElBtnOff= document.querySelector('button[data-stop]');
 const body = document.querySelector('body');
+let timerId;
 
 ElBtnOn.addEventListener("click", () => {
 
     ElBtnOn.setAttribute('disabled', true);
     ElBtnOff.removeAttribute('disabled');
-    const timerId = setInterval(() => {
+    timerId = setInterval(() => {
         body.style.backgroundColor =  getRandomHexColor();
   }, 1000);
 });
